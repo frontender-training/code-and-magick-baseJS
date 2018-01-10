@@ -22,7 +22,14 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
 
-  ctx.fillText('Худшее время: ' + max, 120, 80);
+  var histogramWidth = 150;
+  var step = histogramWidth / (max - 0);
+
+  ctx.fillRect(120, 80, times[0] * step, 40);
+  ctx.fillRect(120, 170, times[1] * step, 40);
+  ctx.fillRect(120, 260, times[2] * step, 40);
+  ctx.fillRect(120, 350, times[2] * step, 40);
+
 };
 
 // Алгоритм решения
