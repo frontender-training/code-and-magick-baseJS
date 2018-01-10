@@ -27,31 +27,25 @@ window.renderStatistics = function (ctx, names, times) {
   }
 
   // Рисуем гистограмму
+  var barWidth = 40;
+  var initialX = 120;
+  var initialY = 245;
+  var indent = 90;
+  var indentName = 20;
+  var indentTime = 15;
+
   var histogramHeight = 150;
   var step = histogramHeight / (max - 0);
 
   for (var i = 0; i < times.length; i++) {
 
     var barHeight = times[i] * step;
-    var barWidth = 40;
-    var initialX = 120;
-    var initialY = 245;
-    var indent = 90;
-    var indentName = 20;
-    var indentTime = 15;
+    var getY = initialY - times[i] * step;
+    var getX = initialX + indent * i;
 
-    function calculateX(startX, space, count) {
-      var coordinatesX = 0;
-      coordinatesX = startX + space * count;
-      return coordinatesX;
-    }
-
-    var identifyX = calculateX(initialX, indent, i);
-
-
-    ctx.fillRect(identifyX, initialY - barHeight, barWidth, barHeight);
-    ctx.fillText(names[i], identifyX, initialY + indentName);
-    ctx.fillText(times[i].toFixed(0), identifyX, initialY - barHeight - indentTime);
+    ctx.fillRect(getX, getY, barWidth, barHeight);
+    ctx.fillText(names[i], getX, initialY + indentName);
+    ctx.fillText(times[i].toFixed(0), getX, getY - indentTime);
   }
 };
 
