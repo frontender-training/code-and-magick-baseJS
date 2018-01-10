@@ -1,5 +1,9 @@
 'use strict';
 
+window.renderStatistics = function (ctx, names, times) {
+  ctx.fillText('Привет канвас!', 100, 100);
+};
+
 // Алгоритм решения
 // 1. Создаем файл js/stat.js в учебном проекте и подключаем его к нашему проекту
 // 2. В новом файле js/stat.js создаем объект window с методом renderStatistics
