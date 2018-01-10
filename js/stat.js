@@ -1,6 +1,7 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
+
   // Рисует тень облака
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(110, 20, 420, 270);
@@ -17,13 +18,15 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов: ', 120, 60);
 
   // Ищем наихудший результат
-  var max = -1;
-
-  for (var i = 0; i < times.length; i++) {
-    var time = times[i];
-    if (time > max) {
-      max = time.toFixed(0);
+  function getMaxValue(array) {
+    var max = -1;
+    for (var i = 0; i < array.length; i++) {
+      var value = array[i];
+      if (value > max) {
+        max = value;
+      }
     }
+    return max;
   }
 
   // Рисуем гистограмму
@@ -35,46 +38,27 @@ window.renderStatistics = function (ctx, names, times) {
   var indentTime = 15;
 
   var histogramHeight = 150;
-  var step = histogramHeight / (max - 0);
+  var step = histogramHeight / (getMaxValue(times) - 0);
+
+  // Вычисляем цвет бара в зависимости от имени игрока
+  function fillBarColor(namePlayer) {
+    var randomOpacity = Math.random().toFixed(2);
+    if (namePlayer === 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    } else {
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + randomOpacity + ')';
+    }
+  }
 
   for (var i = 0; i < times.length; i++) {
-
     var barHeight = times[i] * step;
     var getY = initialY - times[i] * step;
     var getX = initialX + indent * i;
 
-    ctx.fillStyle = fillBarColor(names);
+    ctx.fillStyle = fillBarColor(names[i]);
     ctx.fillRect(getX, getY, barWidth, barHeight);
 
-    ctx.fillStyle = '#000000';
     ctx.fillText(names[i], getX, initialY + indentName);
     ctx.fillText(times[i].toFixed(0), getX, getY - indentTime);
-
-    function fillBarColor(namePlayer, randomOpcity) {
-      var namePlayer = names[i];
-      var randomOpacity = Math.random().toFixed(2);
-      if (namePlayer === 'Вы') {
-        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-      } else {
-        ctx.fillStyle = 'rgba(0, 0, 255, '+randomOpacity+')';
-      }
-    }
   }
 };
-
-// Алгоритм решения
-// 1. Создаем файл js/stat.js в учебном проекте и подключаем его к нашему проекту
-// 2. В новом файле js/stat.js создаем объект window с методом renderStatistics
-// 3. Определеяем для него фуннкцию  параметрами ctx, names, times
-// 4. Проверяем работу функции
-// 5. Нарисуем облако и тень от него
-// 6. Выведем надпись говорящую о победе
-// 7. Определим худшее время
-// 8. Нарисуем гистограмму
-// 9. Зададим координаты гистошраммы так, чтобы она стала вертикальной
-// 10. Выровняем столбцы гистограммы по нижнему краю
-// 11. Обобщим алгоритм при помощи цикла
-// 12. Вынесем в переменные, непонятные числа
-// 13. Вынесем переменные за цикл
-// 14. Зададим цвет для столбцов
-// 15. Сделаем рефакторинг кода, разбив его на более мелкие функции
