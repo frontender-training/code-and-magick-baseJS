@@ -40,9 +40,18 @@ window.renderStatistics = function (ctx, names, times) {
     var indentName = 20;
     var indentTime = 15;
 
-    ctx.fillRect(initialX + indent * i, initialY - barHeight, barWidth, barHeight);
-    ctx.fillText(names[i], initialX + indent * i, initialY + indentName);
-    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY - barHeight - indentTime);
+    function calculateX(startX, space, count) {
+      var coordinatesX = 0;
+      coordinatesX = startX + space * count;
+      return coordinatesX;
+    }
+
+    var identifyX = calculateX(initialX, indent, i);
+
+
+    ctx.fillRect(identifyX, initialY - barHeight, barWidth, barHeight);
+    ctx.fillText(names[i], identifyX, initialY + indentName);
+    ctx.fillText(times[i].toFixed(0), identifyX, initialY - barHeight - indentTime);
   }
 };
 
