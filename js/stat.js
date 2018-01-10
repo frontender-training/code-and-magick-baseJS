@@ -1,7 +1,12 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
-  ctx.fillText('Привет канвас!', 100, 100);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+  ctx.fillRect(110, 20, 420, 270);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeRect(100, 10, 420, 270);
+  ctx.fillRect(100, 10, 420, 270);
 };
 
 // Алгоритм решения
