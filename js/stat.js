@@ -27,13 +27,13 @@ window.renderStatistics = function (ctx, names, times) {
   }
 
   // Рисуем гистограмму
-  var histogramWidth = 150;
-  var step = histogramWidth / (max - 0);
+  var histogramHeight = 150;
+  var step = histogramHeight / (max - 0);
 
-  ctx.fillRect(120, 80, times[0] * step, 40);
-  ctx.fillRect(120, 170, times[1] * step, 40);
-  ctx.fillRect(120, 260, times[2] * step, 40);
-  ctx.fillRect(120, 350, times[2] * step, 40);
+  ctx.fillRect(140, 250 - times[0] * step, 40, times[0] * step);
+  ctx.fillRect(230, 250 - times[1] * step, 40, times[1] * step);
+  ctx.fillRect(320, 250 - times[2] * step, 40, times[2] * step);
+  ctx.fillRect(410, 250 - times[3] * step, 40, times[3] * step);
 
 };
 
