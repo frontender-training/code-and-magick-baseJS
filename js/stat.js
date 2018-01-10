@@ -43,9 +43,21 @@ window.renderStatistics = function (ctx, names, times) {
     var getY = initialY - times[i] * step;
     var getX = initialX + indent * i;
 
+    ctx.fillStyle = fillBarColor(names);
     ctx.fillRect(getX, getY, barWidth, barHeight);
+
+    ctx.fillStyle = '#000000';
     ctx.fillText(names[i], getX, initialY + indentName);
     ctx.fillText(times[i].toFixed(0), getX, getY - indentTime);
+
+    function fillBarColor(namePlayer) {
+      var namePlayer = names[i];
+      if (namePlayer === 'Вы') {
+        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      } else {
+        ctx.fillStyle = 'rgba(0, 0, 255, 1)';
+      }
+    }
   }
 };
 
