@@ -50,12 +50,13 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText(names[i], getX, initialY + indentName);
     ctx.fillText(times[i].toFixed(0), getX, getY - indentTime);
 
-    function fillBarColor(namePlayer) {
+    function fillBarColor(namePlayer, randomOpcity) {
       var namePlayer = names[i];
+      var randomOpacity = Math.random().toFixed(2);
       if (namePlayer === 'Вы') {
         ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       } else {
-        ctx.fillStyle = 'rgba(0, 0, 255, 1)';
+        ctx.fillStyle = 'rgba(0, 0, 255, '+randomOpacity+')';
       }
     }
   }
