@@ -30,10 +30,20 @@ window.renderStatistics = function (ctx, names, times) {
   var histogramHeight = 150;
   var step = histogramHeight / (max - 0);
 
-  ctx.fillRect(140, 250 - times[0] * step, 40, times[0] * step);
-  ctx.fillRect(230, 250 - times[1] * step, 40, times[1] * step);
-  ctx.fillRect(320, 250 - times[2] * step, 40, times[2] * step);
-  ctx.fillRect(410, 250 - times[3] * step, 40, times[3] * step);
+  ctx.fillRect(120 + 90 * 0, 245 - times[0] * step, 40, times[0] * step);
+  ctx.fillRect(120 + 90 * 1, 245 - times[1] * step, 40, times[1] * step);
+  ctx.fillRect(120 + 90 * 2, 245 - times[2] * step, 40, times[2] * step);
+  ctx.fillRect(120 + 90 * 3, 245 - times[3] * step, 40, times[3] * step);
+
+  ctx.fillText(names[0], 120 + 90 * 0, 245 + 20);
+  ctx.fillText(names[1], 120 + 90 * 1, 245 + 20);
+  ctx.fillText(names[2], 120 + 90 * 2, 245 + 20);
+  ctx.fillText(names[3], 120 + 90 * 3, 245 + 20);
+
+  ctx.fillText(times[0].toFixed(0), 120 + 90 * 0, 245 - times[0] * step - 15);
+  ctx.fillText(times[1].toFixed(0), 120 + 90 * 1, 245 - times[1] * step - 15);
+  ctx.fillText(times[2].toFixed(0), 120 + 90 * 2, 245 - times[2] * step - 15);
+  ctx.fillText(times[3].toFixed(0), 120 + 90 * 3, 245 - times[3] * step - 15);
 
 };
 
