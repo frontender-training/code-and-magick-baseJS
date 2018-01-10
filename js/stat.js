@@ -31,9 +31,18 @@ window.renderStatistics = function (ctx, names, times) {
   var step = histogramHeight / (max - 0);
 
   for (var i = 0; i < times.length; i++) {
-    ctx.fillRect(120 + 90 * i, 245 - times[i] * step, 40, times[i] * step);
-    ctx.fillText(names[i], 120 + 90 * i, 245 + 20);
-    ctx.fillText(times[i].toFixed(0), 120 + 90 * i, 245 - times[i] * step - 15);
+
+    var barHeight = times[i] * step;
+    var barWidth = 40;
+    var initialX = 120;
+    var initialY = 245;
+    var indent = 90;
+    var indentName = 20;
+    var indentTime = 15;
+
+    ctx.fillRect(initialX + indent * i, initialY - barHeight, barWidth, barHeight);
+    ctx.fillText(names[i], initialX + indent * i, initialY + indentName);
+    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY - barHeight - indentTime);
   }
 };
 
