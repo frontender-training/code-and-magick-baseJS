@@ -168,35 +168,34 @@
   </div>
 </template>
 <script type="text/javascript">
+  'use strict';
 
   var fireballSize = 22;
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
 
-  var getFireballSpeed = function (left) {
+  var getFireballSpeed = function(left) {
     if (left == true) {
       return 5;
     } else {
       return 2;
     }
-  }
+  };
 
-  var wizardSpeed = 3;
-  var wizardWidth = 70;
-
-  var getWizardHeight = function (wizardWidth) {
+  var getWizardHeight = function(width) {
     var calcWizardHeight = 1.337 * wizardWidth;
     return calcWizardHeight;
-  }
+  };
 
   var wizardHeight = getWizardHeight(wizardWidth);
 
-  function getWizardX (width) {
+  function getWizardX(width) {
     var wizardX = (width / 2) - (wizardWidth / 2);
     return wizardX;
   }
 
-
-  function getWizardY (height) {
-    var wizardY = (height - wizardHeight) * (2 / 3);
+  function getWizardY(height) {
+    var wizardY = height / 3 - wizardHeight;
     return wizardY;
   }
 </script>
