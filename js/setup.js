@@ -6,32 +6,38 @@ var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', '�
 var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 
-// Функция, возвращающая случайный элемемент массива
-function getRandomElement(array) {
-  for (var i = 0; i < array.length; i++) {
-    var randomIndex = Math.floor(Math.random() * array.length);
+var userDialog = document.querySelector('.setup');
+var setupSimilarWizards = document.querySelector('.setup-similar');
+var similarListElement = userDialog.querySelector('.setup-similar-list');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+
+cloneWizard();
+openPopup();
+
+// Клонируем шаблон волшебника
+function cloneWizard() {
+  var similarWizards = generateWizards();
+  var fragment = document.createDocumentFragment();
+
+  for (var i = 0; i < similarWizards.length; i++) {
+    fragment.appendChild(renderWizard(similarWizards[i]));
   }
-  var randomElement = array[randomIndex];
-  return randomElement;
+  similarListElement.appendChild(fragment);
 }
 
-// Функция, возвращающая массив в случайном порядке
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var randomIndex = Math.floor(Math.random() * (i + 1));
-        var tempValue = array[i];
-        array[i] = array[randomIndex];
-        array[randomIndex] = tempValue;
-    }
-    return array;
+// Генерируем шаблон волшебника
+function renderWizard(wizard) {
+  var wizardElement = similarWizardTemplate.cloneNode(true);
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.names + '\n ' + wizard.surnames;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+  return wizardElement;
 }
-
-var similarWizards = generateWizards();
 
 // Функция, возвращающаая массив объектов магов
 function generateWizards() {
- var shuffleWizardNames = shuffleArray(WIZARD_NAMES);
- var shuffleWizardSurnames = shuffleArray(WIZARD_SURNAMES);
+  var shuffleWizardNames = shuffleArray(WIZARD_NAMES);
+  var shuffleWizardSurnames = shuffleArray(WIZARD_SURNAMES);
 
   var wizards = [];
   for (var i = 0; i < COUNT_WIZARDS; i++) {
@@ -45,23 +51,28 @@ function generateWizards() {
   return wizards;
 }
 
-// Открываем окно с похожими персонажами
-var userDialog = document.querySelector('.setup');
-var similarWizards = document.querySelector('.setup-similar');
-userDialog.classList.remove('hidden');
-similarWizards.classList.remove('hidden');
+// Функция, открывающая окно с похожими волшебниками
+function openPopup() {
+  userDialog.classList.remove('hidden');
+  setupSimilarWizards.classList.remove('hidden');
+}
 
-// Открываем окно с похожими персонажами
-var similarListElement = userDialog.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+// Функция, возвращающая массив в случайном порядке
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var randomIndex = Math.floor(Math.random() * (i + 1));
+    var tempValue = array[i];
+    array[i] = array[randomIndex];
+    array[randomIndex] = tempValue;
+  }
+  return array;
+}
 
-// Генерируем и клонируем шаблон волшебника
-for (var i = 0; i < 4; i++) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
-
-  wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name + ' ' + wizards[i].surname;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
-
-  similarListElement.appendChild(wizardElement);
+// Функция, возвращающая случайный элемемент массива
+function getRandomElement(array) {
+  for (var i = 0; i < array.length; i++) {
+    var randomIndex = Math.floor(Math.random() * array.length);
+    var randomElement = array[randomIndex];
+  }
+  return randomElement;
 }
