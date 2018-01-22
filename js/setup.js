@@ -26,10 +26,14 @@ function shuffleArray(array) {
     return array;
 }
 
-var shuffleWizardNames = shuffleArray(WIZARD_NAMES);
-var shuffleWizardSurnames = shuffleArray(WIZARD_SURNAMES);
+var similarWizards = generateWizards();
 
-var wizards = [];
+// Функция, возвращающаая массив объектов магов
+function generateWizards() {
+ var shuffleWizardNames = shuffleArray(WIZARD_NAMES);
+ var shuffleWizardSurnames = shuffleArray(WIZARD_SURNAMES);
+
+  var wizards = [];
   for (var i = 0; i < COUNT_WIZARDS; i++) {
     wizards.push({
       names: shuffleWizardNames[i],
@@ -38,7 +42,7 @@ var wizards = [];
       eyesColor: getRandomElement(EYES_COLOR)
     });
   }
-  console.log(wizards);
+  return wizards;
 }
 
 // Открываем окно с похожими персонажами
