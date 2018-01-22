@@ -15,6 +15,17 @@ function getRandomElement(array) {
   return randomElement;
 }
 
+// Функция, возвращающая массив в случайном порядке
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var randomIndex = Math.floor(Math.random() * (i + 1));
+        var tempValue = array[i];
+        array[i] = array[randomIndex];
+        array[randomIndex] = tempValue;
+    }
+    return array;
+}
+
 var wizards = [
   {
     name: WIZARD_NAMES[0],
