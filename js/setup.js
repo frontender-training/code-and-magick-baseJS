@@ -26,32 +26,20 @@ function shuffleArray(array) {
     return array;
 }
 
-var wizards = [
-  {
-    name: WIZARD_NAMES[0],
-    surname: WIZARD_SURNAMES[0],
-    coatColor: COAT_COLOR[0],
-    eyesColor: EYES_COLOR[0]
-  },
-  {
-    name: WIZARD_NAMES[1],
-    surname: WIZARD_SURNAMES[1],
-    coatColor: COAT_COLOR[1],
-    eyesColor: EYES_COLOR[1]
-  },
-  {
-    name: WIZARD_NAMES[2],
-    surname: WIZARD_SURNAMES[2],
-    coatColor: COAT_COLOR[2],
-    eyesColor: EYES_COLOR[2]
-  },
-  {
-    name: WIZARD_NAMES[3],
-    surname: WIZARD_SURNAMES[3],
-    coatColor: COAT_COLOR[3],
-    eyesColor: EYES_COLOR[3]
+var shuffleWizardNames = shuffleArray(WIZARD_NAMES);
+var shuffleWizardSurnames = shuffleArray(WIZARD_SURNAMES);
+
+var wizards = [];
+  for (var i = 0; i < COUNT_WIZARDS; i++) {
+    wizards.push({
+      names: shuffleWizardNames[i],
+      surnames: shuffleWizardSurnames[i],
+      coatColor: getRandomElement(COAT_COLOR),
+      eyesColor: getRandomElement(EYES_COLOR)
+    });
   }
-];
+  console.log(wizards);
+}
 
 // Открываем окно с похожими персонажами
 var userDialog = document.querySelector('.setup');
