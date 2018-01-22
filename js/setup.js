@@ -1,9 +1,19 @@
 'use strict';
 
+var COUNT_WIZARDS = 4;
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+
+// Функция, возвращающая случайный элемемент массива
+function getRandomElement(array) {
+  for (var i = 0; i < array.length; i++) {
+    var randomIndex = Math.floor(Math.random() * array.length);
+  }
+  var randomElement = array[randomIndex];
+  return randomElement;
+}
 
 var wizards = [
   {
