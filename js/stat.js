@@ -26,6 +26,7 @@ window.renderStatistics = function (ctx, names, times) {
   function writeText(textArray) {
     ctx.fillStyle = '#000';
     ctx.font = '16px PT Mono';
+
     for (var i = 0; i < textArray.length; i++) {
       ctx.fillText(textArray[i], startX + margin, startY + (i + 1) * 25);
     }
