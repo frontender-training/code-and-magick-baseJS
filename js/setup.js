@@ -1,21 +1,23 @@
 'use strict';
 
-var COUNT_WIZARDS = 4;
-var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var DataWizards = {
+  COUNT: 4,
+  NAMES: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
+  SURNAMES: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
+  COAT_COLOR: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+  EYES_COLOR: ['black', 'red', 'blue', 'yellow', 'green']
+};
 
 var userDialog = document.querySelector('.setup');
 var setupSimilarWizards = document.querySelector('.setup-similar');
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
-cloneWizard();
+renderWizards();
 openPopup();
 
 // Клонируем шаблон волшебника
-function cloneWizard() {
+function renderWizards() {
   var similarWizards = generateWizards();
   var fragment = document.createDocumentFragment();
 
@@ -36,16 +38,16 @@ function renderWizard(wizard) {
 
 // Функция, возвращающаая массив объектов магов
 function generateWizards() {
-  var shuffleWizardNames = shuffleArray(WIZARD_NAMES);
-  var shuffleWizardSurnames = shuffleArray(WIZARD_SURNAMES);
+  var shuffleWizardNames = shuffleArray(DataWizards.NAMES);
+  var shuffleWizardSurnames = shuffleArray(DataWizards.SURNAMES);
 
   var wizards = [];
-  for (var i = 0; i < COUNT_WIZARDS; i++) {
+  for (var i = 0; i < DataWizards.COUNT; i++) {
     wizards.push({
       names: shuffleWizardNames[i],
       surnames: shuffleWizardSurnames[i],
-      coatColor: getRandomElement(COAT_COLOR),
-      eyesColor: getRandomElement(EYES_COLOR)
+      coatColor: getRandomElement(DataWizards.COAT_COLOR),
+      eyesColor: getRandomElement(DataWizards.EYES_COLOR)
     });
   }
   return wizards;
