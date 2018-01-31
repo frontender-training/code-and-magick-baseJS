@@ -1,19 +1,21 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
-  var startX = 100;
-  var startY = 10;
-  var widthRect = 420;
-  var heightRect = 270;
-  var lenghtShadow = 10;
-  var margin = 40;
+  var dataCloud = {
+    startX: 100,
+    startY: 10,
+    widthRect: 420,
+    heightRect: 270,
+    lenghtShadow: 10,
+    margin: 40,
 
-  var colorRect = ['rgba(0, 0, 0, 0.7)', 'rgb(256, 256, 256)'];
-  var text = ['Ура вы победили!', 'Список результатов: '];
+    colorRect: ['rgba(0, 0, 0, 0.7)', 'rgb(256, 256, 256)'],
+    text: ['Ура вы победили!', 'Список результатов: ']
+  };
 
-  drawRect(startX + lenghtShadow, startY + lenghtShadow, widthRect, heightRect, colorRect[0]);
-  drawRect(startX, startY, widthRect, heightRect, colorRect[1]);
-  writeText(text);
+  drawRect(dataCloud.startX + dataCloud.lenghtShadow, dataCloud.startY + dataCloud.lenghtShadow, dataCloud.widthRect, dataCloud.heightRect, dataCloud.colorRect[0]);
+  drawRect(dataCloud.startX, dataCloud.startY, dataCloud.widthRect, dataCloud.heightRect, dataCloud.colorRect[1]);
+  writeText(dataCloud.text);
   drawHistogram(times, names);
 
   // Рисуем прямоугольник
@@ -28,33 +30,44 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.font = '16px PT Mono';
 
     for (var i = 0; i < textArray.length; i++) {
-      ctx.fillText(textArray[i], startX + margin, startY + (i + 1) * 25);
+      ctx.fillText(textArray[i], dataCloud.startX + dataCloud.margin, dataCloud.startY + (i + 1) * 25);
     }
   }
 
   // Рисуем гистограмму
   function drawHistogram(arrayTimes, arrayNames) {
-    var barWidth = 40;
-    var indent = 90;
-    var indentName = 20;
-    var indentTime = 10;
-    var histogramHeight = 150;
-    var paddingTop = 60;
-    var step = histogramHeight / (getMaxValue(times) - 0);
 
-    var initialX = startX + margin;
-    var initialY = startY + histogramHeight + indentName + indentTime + paddingTop;
+    var dataHistogram = {
+      barWidth: 40,
+      indent: 90,
+      indentName: 20,
+      indentTime: 10,
+      histogramHeight: 150,
+      paddingTop: 60,
+    };
+
+    var step = function () {
+      return dataHistogram.histogramHeight / (getMaxValue(times) - 0);
+    };
+
+    var initialX = function () {
+      return dataCloud.startX + dataCloud.margin;
+    };
+
+    var initialY = function () {
+      return dataCloud.startY + dataHistogram.histogramHeight + dataHistogram.indentName + dataHistogram.indentTime + dataHistogram.paddingTop;
+    };
 
     for (var i = 0; i < arrayTimes.length; i++) {
-      var barHeight = arrayTimes[i] * step;
-      var getY = initialY - arrayTimes[i] * step;
-      var getX = initialX + indent * i;
+      dataHistogram.barHeight = arrayTimes[i] * step();
+      var getY = initialY() - arrayTimes[i] * step();
+      var getX = initialX() + dataHistogram.indent * i;
 
       ctx.fillStyle = fillBarColor(names[i]);
-      ctx.fillRect(getX, getY, barWidth, barHeight);
+      ctx.fillRect(getX, getY, dataHistogram.barWidth, dataHistogram.barHeight);
 
-      ctx.fillText(arrayNames[i], getX, initialY + indentName);
-      ctx.fillText(arrayTimes[i].toFixed(0), getX, getY - indentTime);
+      ctx.fillText(arrayNames[i], getX, initialY() + dataHistogram.indentName);
+      ctx.fillText(arrayTimes[i].toFixed(0), getX, getY - dataHistogram.indentTime);
     }
   }
 
