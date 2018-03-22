@@ -168,39 +168,32 @@
   </div>
 </template>
 <script type="text/javascript">
+  'use strict';
 
   var fireballSize = 22;
-
-  var getFireballSpeed = function (left) {
-    if (left == true) {
-      return 5;
-    } else {
-      return 2;
-    }
-  }
-
   var wizardSpeed = 3;
   var wizardWidth = 70;
 
-  var getWizardHeight = function (wizardWidth) {
-    var calcWizardHeight = 1.337 * wizardWidth;
-    return calcWizardHeight;
-  }
+  var getFireballSpeed = function(left) {
+    return left ? 5 : 2;
+  };
+
+  var getWizardHeight = function(width) {
+    return 1.337 * wizardWidth;
+  };
 
   var wizardHeight = getWizardHeight(wizardWidth);
 
-  function getWizardX (width) {
-    var wizardX = (width / 2) - (wizardWidth / 2);
-    return wizardX;
+  function getWizardX(width) {
+    return (width / 2) - (wizardWidth / 2);
   }
 
-
-  function getWizardY (height) {
-    var wizardY = (height - wizardHeight) * (2 / 3);
-    return wizardY;
+  function getWizardY(height) {
+    return (height - wizardHeight) * (2 / 3);
   }
 </script>
 <script type="application/javascript" src="js/stat.js"></script>
+<script type="application/javascript" src="js/setup.js"></script>
 <script type="application/javascript" src="js/game.js"></script>
 </body>
 </html>

@@ -727,6 +727,10 @@ input[type=radio]:checked + .review-mark-label {
   flex-wrap: nowrap;
 }
 
+.setup-similar-item {
+  width: 150px;
+}
+
 .setup-similar-label {
   margin: 5px;
 
