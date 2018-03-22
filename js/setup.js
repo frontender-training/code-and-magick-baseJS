@@ -17,8 +17,8 @@ var KEYCODE = {
 
 // Module4-task1
 var userDialog = document.querySelector('.setup');
-var userDialogOpen = document.querySelector('.setup-open'); // кнопка открытия окна
-var userDialogClose = userDialog.querySelector('.setup-close');      // кнопка закрытия окна
+var userDialogOpen = document.querySelector('.setup-open');   // кнопка открытия окна
+var userDialogClose = userDialog.querySelector('.setup-close'); // кнопка закрытия окна
 
 var userInputName = userDialog.querySelector('.setup-user-name');
 
@@ -27,6 +27,29 @@ var setupSimilarWizards = document.querySelector('.setup-similar');
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
+// Module4-task1
+// Валидация формы
+userInputName.addEventListener('invalid', function (evt) {
+  if (userInputName.validity.tooShort) {
+    userInputName.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userInputName.validity.tooLong) {
+    userInputName.setCustomValidity('Имя не должно превышать из 25-ти символов');
+  } else if (userInputName.validity.valueMissing) {
+    userInputName.setCustomValidity('Обязательное поле');
+  } else {
+    userInputName.setCustomValidity('');
+  }
+});
+
+// Валидация инпута для edge
+userInputName.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length < 2) {
+    target.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else {
+    target.setCustomValidity('');
+  }
+});
 
 // Закрываем окно с настройками персонажа по клику на крестик
 userDialogClose.addEventListener('click', function () {
