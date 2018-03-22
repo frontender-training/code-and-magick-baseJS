@@ -46,27 +46,19 @@ window.renderStatistics = function (ctx, names, times) {
       paddingTop: 60,
     };
 
-    var step = function () {
-      return dataHistogram.histogramHeight / (getMaxValue(times) - 0);
-    };
-
-    var initialX = function () {
-      return dataCloud.startX + dataCloud.margin;
-    };
-
-    var initialY = function () {
-      return dataCloud.startY + dataHistogram.histogramHeight + dataHistogram.indentName + dataHistogram.indentTime + dataHistogram.paddingTop;
-    };
+    var step = dataHistogram.histogramHeight / (getMaxValue(times) - 0);
+    var initialX = dataCloud.startX + dataCloud.margin;
+    var initialY = dataCloud.startY + dataHistogram.histogramHeight + dataHistogram.indentName + dataHistogram.indentTime + dataHistogram.paddingTop;
 
     for (var i = 0; i < arrayTimes.length; i++) {
-      dataHistogram.barHeight = arrayTimes[i] * step();
-      var getY = initialY() - arrayTimes[i] * step();
-      var getX = initialX() + dataHistogram.indent * i;
+      dataHistogram.barHeight = arrayTimes[i] * step;
+      var getY = initialY - arrayTimes[i] * step;
+      var getX = initialX + dataHistogram.indent * i;
 
       ctx.fillStyle = fillBarColor(names[i]);
       ctx.fillRect(getX, getY, dataHistogram.barWidth, dataHistogram.barHeight);
 
-      ctx.fillText(arrayNames[i], getX, initialY() + dataHistogram.indentName);
+      ctx.fillText(arrayNames[i], getX, initialY + dataHistogram.indentName);
       ctx.fillText(arrayTimes[i].toFixed(0), getX, getY - dataHistogram.indentTime);
     }
   }
