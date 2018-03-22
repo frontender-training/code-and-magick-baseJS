@@ -1,12 +1,13 @@
 'use strict';
 
 // Module3-task1
-var DATAWIZARDS = {
+var DATA_WIZARDS = {
   COUNT: 4,
   NAMES: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   SURNAMES: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
   COAT_COLOR: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
-  EYES_COLOR: ['black', 'red', 'blue', 'yellow', 'green']
+  EYES_COLOR: ['black', 'red', 'blue', 'yellow', 'green'],
+  FIREBALL_COLOR: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
 };
 
 // Module4-task1
@@ -22,12 +23,43 @@ var userDialogClose = userDialog.querySelector('.setup-close'); // кнопка 
 
 var userInputName = userDialog.querySelector('.setup-user-name');
 
+var changeCoatColor = userDialog.querySelector('.wizard-coat');
+var changeEyesColor = userDialog.querySelector('.wizard-eyes');
+var changeFireballColor = userDialog.querySelector('.setup-fireball-wrap');
+
 // Module3-task1
 var setupSimilarWizards = document.querySelector('.setup-similar');
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
 // Module4-task1
+changeCoatColor.addEventListener('click', function (evt) {
+  changeCoatColor.style.fill = DATA_WIZARDS.COAT_COLOR[counter(DATA_WIZARDS.COAT_COLOR)];
+});
+
+changeEyesColor.addEventListener('click', function (evt) {
+  changeEyesColor.style.fill = DATA_WIZARDS.EYES_COLOR[counter(DATA_WIZARDS.EYES_COLOR)];
+});
+
+changeFireballColor.addEventListener('click', function (evt) {
+  changeFireballColor.style.background = DATA_WIZARDS.FIREBALL_COLOR[counter(DATA_WIZARDS.FIREBALL_COLOR)];
+});
+
+// Счетчик
+var counter = makeCounter();
+
+function makeCounter() {
+  var count = 1;
+
+  return function (array) {
+    if (count >= array.length) {
+      count = 0;
+      return count++;
+    }
+    return count++;
+  };
+}
+
 // Валидация формы
 userInputName.addEventListener('invalid', function (evt) {
   if (userInputName.validity.tooShort) {
@@ -35,7 +67,7 @@ userInputName.addEventListener('invalid', function (evt) {
   } else if (userInputName.validity.tooLong) {
     userInputName.setCustomValidity('Имя не должно превышать из 25-ти символов');
   } else if (userInputName.validity.valueMissing) {
-    userInputName.setCustomValidity('Обязательное поле');
+    userInputName.setCustomValidity('Введите имя персонажа');
   } else {
     userInputName.setCustomValidity('');
   }
@@ -121,16 +153,16 @@ function renderWizard(wizard) {
 
 // Функция, возвращающаая массив объектов магов
 function generateWizards() {
-  var shuffleWizardNames = shuffleArray(DATAWIZARDS.NAMES);
-  var shuffleWizardSurnames = shuffleArray(DATAWIZARDS.SURNAMES);
+  var shuffleWizardNames = shuffleArray(DATA_WIZARDS.NAMES);
+  var shuffleWizardSurnames = shuffleArray(DATA_WIZARDS.SURNAMES);
 
   var wizards = [];
-  for (var i = 0; i < DATAWIZARDS.COUNT; i++) {
+  for (var i = 0; i < DATA_WIZARDS.COUNT; i++) {
     wizards.push({
       names: shuffleWizardNames[i],
       surnames: shuffleWizardSurnames[i],
-      coatColor: getRandomElement(DATAWIZARDS.COAT_COLOR),
-      eyesColor: getRandomElement(DATAWIZARDS.EYES_COLOR)
+      coatColor: getRandomElement(DATA_WIZARDS.COAT_COLOR),
+      eyesColor: getRandomElement(DATA_WIZARDS.EYES_COLOR)
     });
   }
   return wizards;
