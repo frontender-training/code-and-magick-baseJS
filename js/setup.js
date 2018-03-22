@@ -1,6 +1,7 @@
 'use strict';
 
-var DataWizards = {
+// Module3-task1
+var DATAWIZARDS = {
   COUNT: 4,
   NAMES: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   SURNAMES: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
@@ -8,13 +9,72 @@ var DataWizards = {
   EYES_COLOR: ['black', 'red', 'blue', 'yellow', 'green']
 };
 
+// Module4-task1
+var KEYCODE = {
+  ENTER: 13,
+  ESC: 27
+};
+
+// Module4-task1
 var userDialog = document.querySelector('.setup');
+var userDialogOpen = document.querySelector('.setup-open'); // кнопка открытия окна
+var userDialogClose = userDialog.querySelector('.setup-close');      // кнопка закрытия окна
+
+var userInputName = userDialog.querySelector('.setup-user-name');
+
+// Module3-task1
 var setupSimilarWizards = document.querySelector('.setup-similar');
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
+
+// Закрываем окно с настройками персонажа по клику на крестик
+userDialogClose.addEventListener('click', function () {
+  closeSettingsWizard();
+});
+
+// Открываем окно с настройками персонажа по клику на иконку
+userDialogOpen.addEventListener('click', function () {
+  openSettingsWizard();
+  showSimilarWizards();
+});
+
+// Открываем окно с настройками персонажа по клику на кнопку Enter
+userDialogOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KEYCODE.ENTER) {
+    openSettingsWizard();
+    showSimilarWizards();
+  }
+});
+
+// Закрываем окно с настройками персонажа по клику на клавишу ESC
+function onUserDialogEscPress(evt) {
+  if (evt.keyCode === KEYCODE.ESC) {
+    closeSettingsWizard();
+  }
+}
+
+// Функция, открывающая окно с похожими волшебниками и создающая функцию для закрытия окна с клавиатуры
+function openSettingsWizard() {
+  userDialog.classList.remove('hidden');
+  document.addEventListener('keydown', onUserDialogEscPress);
+}
+
+// Функция, закрывающая окно с похожими волшебниками и удаляющую функцию для закрытия окна с клавиатуры
+function closeSettingsWizard() {
+  if (document.activeElement !== userInputName) {
+    userDialog.classList.add('hidden');
+    document.removeEventListener('keydown', onUserDialogEscPress);
+  }
+}
+
+// Module3-task1
+// Функция, открывающая окно с похожими волшебниками
+function showSimilarWizards() {
+  setupSimilarWizards.classList.remove('hidden');
+}
+
 renderWizards();
-openPopup();
 
 // Клонируем шаблон волшебника
 function renderWizards() {
@@ -38,25 +98,19 @@ function renderWizard(wizard) {
 
 // Функция, возвращающаая массив объектов магов
 function generateWizards() {
-  var shuffleWizardNames = shuffleArray(DataWizards.NAMES);
-  var shuffleWizardSurnames = shuffleArray(DataWizards.SURNAMES);
+  var shuffleWizardNames = shuffleArray(DATAWIZARDS.NAMES);
+  var shuffleWizardSurnames = shuffleArray(DATAWIZARDS.SURNAMES);
 
   var wizards = [];
-  for (var i = 0; i < DataWizards.COUNT; i++) {
+  for (var i = 0; i < DATAWIZARDS.COUNT; i++) {
     wizards.push({
       names: shuffleWizardNames[i],
       surnames: shuffleWizardSurnames[i],
-      coatColor: getRandomElement(DataWizards.COAT_COLOR),
-      eyesColor: getRandomElement(DataWizards.EYES_COLOR)
+      coatColor: getRandomElement(DATAWIZARDS.COAT_COLOR),
+      eyesColor: getRandomElement(DATAWIZARDS.EYES_COLOR)
     });
   }
   return wizards;
-}
-
-// Функция, открывающая окно с похожими волшебниками
-function openPopup() {
-  userDialog.classList.remove('hidden');
-  setupSimilarWizards.classList.remove('hidden');
 }
 
 // Функция, возвращающая новый массив из старого в случайном порядке
