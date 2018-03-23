@@ -83,10 +83,18 @@ userInputName.addEventListener('input', function (evt) {
   }
 });
 
+// Закрываем окно с настройками персонажа по клику на кнопку Enter
+userDialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KEYCODE.ENTER) {
+    closeSettingsWizard();
+  }
+});
+
 // Закрываем окно с настройками персонажа по клику на крестик
 userDialogClose.addEventListener('click', function () {
   closeSettingsWizard();
 });
+
 
 // Открываем окно с настройками персонажа по клику на иконку
 userDialogOpen.addEventListener('click', function () {
