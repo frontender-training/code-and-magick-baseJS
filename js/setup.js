@@ -33,35 +33,37 @@ var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
 // Module4-task1
+var getNextCoatColor = getIterator(DATA_WIZARDS.COAT_COLOR);
+var getNextEyeColor = getIterator(DATA_WIZARDS.EYES_COLOR);
+var getNextFireballColor = getIterator(DATA_WIZARDS.FIREBALL_COLOR);
+
 changeCoatColor.addEventListener('click', function (evt) {
-  changeCoatColor.style.fill = DATA_WIZARDS.COAT_COLOR[counter(DATA_WIZARDS.COAT_COLOR)];
+  changeCoatColor.style.fill = getNextCoatColor();
 });
 
 changeEyesColor.addEventListener('click', function (evt) {
-  changeEyesColor.style.fill = DATA_WIZARDS.EYES_COLOR[counter(DATA_WIZARDS.EYES_COLOR)];
+  changeEyesColor.style.fill = getNextEyeColor();
 });
 
 changeFireballColor.addEventListener('click', function (evt) {
-  changeFireballColor.style.background = DATA_WIZARDS.FIREBALL_COLOR[counter(DATA_WIZARDS.FIREBALL_COLOR)];
+  changeFireballColor.style.background = getNextFireballColor();
 });
 
 // Счетчик
-var counter = makeCounter();
-
-function makeCounter() {
+function getIterator(array) {
   var count = 1;
-
-  return function (array) {
+  return function () {
     if (count >= array.length) {
       count = 0;
-      return count++;
     }
-    return count++;
+    return array[count++];
   };
 }
 
 // Валидация формы
 userInputName.addEventListener('invalid', function (evt) {
+  var message = '';
+
   if (userInputName.validity.tooShort) {
     userInputName.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (userInputName.validity.tooLong) {
@@ -182,7 +184,7 @@ function shuffleArray(array) {
   for (var i = mixedArray.length - 1; i > 0; i--) {
     var randomIndex = Math.floor(Math.random() * (i + 1));
     var tempValue = mixedArray[i];
-    mixedArray[i] = array[randomIndex];
+    mixedArray[i] = mixedArray[randomIndex];
     mixedArray[randomIndex] = tempValue;
   }
   return mixedArray;
