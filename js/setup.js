@@ -62,27 +62,26 @@ function getIterator(array) {
 
 // Валидация формы
 userInputName.addEventListener('invalid', function (evt) {
-  var message = '';
-
+  var message;
   if (userInputName.validity.tooShort) {
-    userInputName.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+    message = 'Имя должно состоять минимум из 2-х символов';
   } else if (userInputName.validity.tooLong) {
-    userInputName.setCustomValidity('Имя не должно превышать из 25-ти символов');
+    message = 'Имя не должно превышать 25-ти символов';
   } else if (userInputName.validity.valueMissing) {
-    userInputName.setCustomValidity('Введите имя персонажа');
+    message = 'Введите имя персонажа';   
   } else {
-    userInputName.setCustomValidity('');
+    message = '';
   }
+  userInputName.setCustomValidity(message);
 });
 
 // Валидация инпута для edge
 userInputName.addEventListener('input', function (evt) {
+  var message;
   var target = evt.target;
-  if (target.value.length < 2) {
-    target.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-  } else {
-    target.setCustomValidity('');
-  }
+
+  target.value.length < 2 ? message = 'Имя должно состоять минимум из 2-х символов' : message = '';
+  target.setCustomValidity(message);
 });
 
 // Закрываем окно с настройками персонажа по клику на кнопку Enter
